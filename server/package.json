@@ -1,0 +1,41 @@
+{
+  "name": "flights-service",
+  "version": "1.0.0",
+  "description": "Flight micro service",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon src/index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/moontrip/flights-service.git"
+  },
+  "keywords": [
+    "micro",
+    "service",
+    "flights",
+    "skypicker",
+    "kiwi",
+    "skyscanner"
+  ],
+  "author": "Helder Pereira <blackspiider.86@gmail.com>",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/moontrip/flights-service#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
+    "express-validation": "^1.0.2",
+    "http-status": "^1.3.1",
+    "joi": "^14.3.1",
+    "morgan": "^1.9.1",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "nodemon": "^1.18.10"
+  }
+}
