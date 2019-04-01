@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const compress = require('compression');
 const routes = require('../routes/v1');
 const error = require('../middlewares/error');
+const initDatabase = require('../utils/database');
 
 /**
 * Express instance
@@ -13,6 +14,9 @@ const app = express();
 
 // request logging. dev: console | production: file
 app.use(morgan('dev'));
+
+// connect to mongo
+initDatabase();
 
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
