@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { createUser } from '../../services/api';
+import { UserContext } from '../../services/context';
 
-const Register = () => {
+const Register = ({ history }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const currentUser = useContext(UserContext)
+
+  if (currentUser) {
+    history.push('/')
+  }
 
   const handleSubmit = (evt) => {
     if (evt) {

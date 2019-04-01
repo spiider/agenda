@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from "react-router-dom";
+import { UserContext } from '../../services/context';
 
 
-const AuthedRoute = ({ component: Component, user, ...rest }) => {
+const AuthedRoute = ({ component: Component, ...rest }) => {
+  const user = useContext(UserContext);
   return (
     <Route
       {...rest}

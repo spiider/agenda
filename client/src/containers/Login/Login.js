@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { loginUser } from '../../services/api';
 import './Login.css'
+import { UserContext } from '../../services/context';
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, history} ) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const currentUser = useContext(UserContext)
+
+  if (currentUser) {
+    history.push('/')
+  }
 
   const handleSubmit = (evt) => {
     if (evt) {
@@ -15,7 +21,10 @@ const Login = ({ setUser }) => {
       // TODO: Display better message to user
       if (data.ok) {
         alert('User logged in!')
-        data.json().then(user => setUser(user));
+        data.json().then(user => {
+          setUser(user)
+          history.push('/');
+        });
       } else {
         alert('Wrong username or password!');
       }
