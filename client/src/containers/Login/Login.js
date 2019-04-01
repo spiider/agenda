@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
+import { loginUser } from '../../services/api';
 import './Login.css'
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSubmit = (evt) => {
+    if (evt) {
+      evt.preventDefault();
+    }
+    loginUser({ username, password })
+    .then((data) => {
+      // TODO: Display better message to user
+      if (data.ok) {
+        alert('User logged in!')
+        data.json().then(user => setUser(user));
+      } else {
+        alert('Wrong username or password!');
+      }
+    }).catch(() => {
+      alert('Something went wrong');
+    })
+  };
+
   return (
     <div className="container">
-      <form className="form-signin">
+      <form className="form-signin" onSubmit={handleSubmit}>
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label htmlFor="inputUsername" className="sr-only">Username</label>
         <input 
@@ -29,11 +49,6 @@ const Login = () => {
           value={password}
           onChange={evt => setPassword(evt.target.value)}
           />
-        <div className="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
         <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
     </div>

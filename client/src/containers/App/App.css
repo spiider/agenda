@@ -1,0 +1,10 @@
+html,
+.container-full {
+  width: 100%;
+  min-height: 800px;
+}
+
+.container-full .rbc-calendar {
+  margin-top: 20px;
+  height: 800px;
+}

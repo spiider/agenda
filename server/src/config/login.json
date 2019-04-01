@@ -1,3 +1,4 @@
 {
-  "jwtSecret": "--myC4t1sAwesome!%&:D"
+  "jwtSecret": "--myC4t1sAwesome!%&:D",
+  "jwtExpirationInterval": 60
 }

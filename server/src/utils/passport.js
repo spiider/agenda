@@ -1,5 +1,4 @@
 const JwtStrategy = require('passport-jwt').Strategy;
-const BearerStrategy = require('passport-http-bearer');
 const { ExtractJwt } = require('passport-jwt');
 const { jwtSecret } = require('../config/login.json');
 const User = require('../models/user');
@@ -19,14 +18,4 @@ const jwt = async (payload, done) => {
   }
 };
 
-const authenticate = service => async (token, done) => {
-  try {
-    const user = await authProviders[service](token);
-    return done(null, user);
-  } catch (err) {
-    return done(err);
-  }
-};
-
 exports.jwt = new JwtStrategy(jwtOptions, jwt);
-exports.local = new BearerStrategy(authenticate('local'));

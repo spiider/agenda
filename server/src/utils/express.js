@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const compress = require('compression');
+const cors = require('cors');
+const passport = require('passport');
 const routes = require('../routes/v1');
 const error = require('../middlewares/error');
 const initDatabase = require('../utils/database');
@@ -26,10 +28,12 @@ app.use(bodyParser.json());
 // gzip compression
 app.use(compress());
 
+// enable CORS - Cross Origin Resource Sharing
+app.use(cors());
+
 // enable authentication
 app.use(passport.initialize());
 passport.use('jwt', strategies.jwt);
-passport.use('local', strategies.local);
 
 // mount api v1 routes
 app.use('/v1', routes);
