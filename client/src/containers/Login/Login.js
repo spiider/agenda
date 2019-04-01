@@ -8,12 +8,12 @@ const Login = () => {
     <div className="container">
       <form className="form-signin">
         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label htmlFor="inputEmail" className="sr-only">Email address</label>
+        <label htmlFor="inputUsername" className="sr-only">Username</label>
         <input 
-          type="email"
-          id="inputEmail"
+          type="username"
+          id="inputUsername"
           className="form-control"
-          placeholder="Email address"
+          placeholder="Username"
           required
           autoFocus
           value={username}
