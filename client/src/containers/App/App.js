@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from '../../components/Header/Header';
 import AuthedRoute from '../../components/AuthedRoute/AuthedRoute';
+import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound';
@@ -13,7 +14,7 @@ const App = () => {
       <div>
         <Header />
         <Switch>
-          <AuthedRoute path="/" exact component={() => (<div>Home</div>)} />
+          <AuthedRoute path="/" exact component={Home} user={{}} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route component={NotFound} />
