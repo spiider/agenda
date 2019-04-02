@@ -5,15 +5,34 @@ export const createUser = (payload) =>
     headers: {
       'Content-Type':'application/json'
     },
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(payload)
   });
 
-  export const loginUser = (payload) => 
+export const loginUser = (payload) => 
   fetch(`${host}/v1/user/login`, {
     headers: {
       'Content-Type':'application/json'
     },
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(payload)
+  });
+
+export const createEvent = (payload, token) => 
+  fetch(`${host}/v1/events`, {
+    headers: {
+      'Content-Type':'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+
+export const fetchEvents = (token) => 
+  fetch(`${host}/v1/events`, {
+    headers: {
+      'Content-Type':'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    method: 'GET',
   });

@@ -1,20 +1,95 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Calendar from 'react-big-calendar';
 import moment from 'moment';
 import './Home.css';
+import { UserContext } from '../../services/context';
+import { createEvent, fetchEvents } from '../../services/api';
 
 const localizer = Calendar.momentLocalizer(moment)
 
 
 const Home = () => {
-  return (<Calendar 
-    selectable
-    defaultDate={new Date()}
-    localizer={localizer}
-    events={[]}
-    startAccessor="start"
-    endAccessor="end"
-    />)
+  const user = useContext(UserContext);
+  const [eventsList, setEventsList] = useState([])
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
+    createEvent({ title, description, start: startDate, end: endDate }, user.token.accessToken)
+    .then((data) => console.log(data))
+  }
+
+  useEffect(() => {
+    fetchEvents(user.token.accessToken)
+    .then(data => {
+      if (data.ok) {
+        return data.json()
+      }
+    })
+    .then(list => { console.log(list); setEventsList(list)});
+  }, [])
+
+  return (
+    <div>
+      <div className="container">
+      <form className="form-signin" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          id="inputUsername"
+          className="form-control"
+          placeholder="Title"
+          required
+          autoFocus
+          value={title}
+          onChange={evt => setTitle(evt.target.value)}
+          />
+        <input
+          type="text"
+          id="inputUsername"
+          className="form-control"
+          placeholder="Description"
+          required
+          autoFocus
+          value={description}
+          onChange={evt => setDescription(evt.target.value)}
+        />
+        <input
+          type="date"
+          id="inputUsername"
+          className="form-control"
+          placeholder="Start Date"
+          required
+          autoFocus
+          value={startDate}
+          onChange={evt => setStartDate(evt.target.value)}
+        />
+        <input
+          type="date"
+          id="inputUsername"
+          className="form-control"
+          placeholder="End Date"
+          required
+          autoFocus
+          value={endDate}
+          onChange={evt => setEndDate(evt.target.value)}
+          />
+        <button className="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+      </form>
+    </div>
+      
+       <Calendar
+        selectable
+        // onSelectSlot={(e) => this.openModal(e)}
+        // onSelectEvent={(e) => this.openModal(e)}
+        localizer={localizer}
+        events={eventsList}
+        startAccessor="start"
+        endAccessor="end"
+        />
+    </div>
+ )
 }
 
 export default Home;

@@ -9,9 +9,6 @@ const Header = () => {
       <nav>
       <ul className="nav nav-tabs justify-content-center">
         <li className="nav-item">
-          <Link className="nav-link" to="/event">Add Event</Link>
-        </li>
-        <li className="nav-item">
           <Link className="nav-link" to="/logout">Logout</Link>
         </li>
       </ul>

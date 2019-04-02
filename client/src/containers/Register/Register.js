@@ -36,7 +36,7 @@ const Register = ({ history }) => {
         <h1 className="h3 mb-3 font-weight-normal">Register</h1>
         <label htmlFor="inputUsername" className="sr-only">Username</label>
         <input 
-          type="username"
+          type="text"
           id="inputUsername"
           className="form-control"
           placeholder="Username"
