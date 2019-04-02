@@ -12,13 +12,17 @@ const Home = () => {
   const user = useContext(UserContext);
   const [eventsList, setEventsList] = useState([])
   const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  const [desc, setDesc] = useState();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const handleSubmit = (evt) => {
     evt.preventDefault()
-    createEvent({ title, description, start: startDate, end: endDate }, user.token.accessToken)
-    .then((data) => console.log(data))
+    createEvent({ title, desc, start: startDate, end: endDate }, user.token.accessToken)
+    .then(data => {
+      if (data.ok) {
+        setEventsList([...eventsList, { title, desc, start: startDate, end: endDate }])
+      }
+    }).catch(e => console.log(e))
   }
 
   useEffect(() => {
@@ -52,8 +56,8 @@ const Home = () => {
           placeholder="Description"
           required
           autoFocus
-          value={description}
-          onChange={evt => setDescription(evt.target.value)}
+          value={desc}
+          onChange={evt => setDesc(evt.target.value)}
         />
         <input
           type="date"

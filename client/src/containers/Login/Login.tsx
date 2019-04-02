@@ -1,29 +1,32 @@
 import React, { useState, useContext } from 'react';
-import { createUser } from '../../services/api';
+import { loginUser } from '../../services/api';
 import { UserContext } from '../../services/context';
+import './Login.css'
 
-const Register = ({ history }) => {
-  const [name, setName] = useState('');
+const Login = ({ setUser, history}: {[key:string]:any} ) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const currentUser = useContext(UserContext)
 
   if (currentUser) {
     history.push('/')
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = (evt: any) => {
     if (evt) {
       evt.preventDefault();
     }
-    createUser({ username, password, name })
+    loginUser({ username, password })
     .then((data) => {
       // TODO: Display better message to user
       if (data.ok) {
-        alert('User created with success!')
+        alert('User logged in!')
+        data.json().then(user => {
+          setUser(user)
+          history.push('/');
+        });
       } else {
-        alert('Something went wrong');
+        alert('Wrong username or password!');
       }
     }).catch(() => {
       alert('Something went wrong');
@@ -33,7 +36,7 @@ const Register = ({ history }) => {
   return (
     <div className="container">
       <form className="form-signin" onSubmit={handleSubmit}>
-        <h1 className="h3 mb-3 font-weight-normal">Register</h1>
+        <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label htmlFor="inputUsername" className="sr-only">Username</label>
         <input 
           type="text"
@@ -55,20 +58,10 @@ const Register = ({ history }) => {
           value={password}
           onChange={evt => setPassword(evt.target.value)}
           />
-        <label htmlFor="inputName" className="sr-only">Name</label>
-        <input
-          type="text"
-          id="name"
-          className="form-control"
-          placeholder="Name"
-          required
-          value={name}
-          onChange={evt => setName(evt.target.value)}
-          />
-        <button className="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Register;
+export default Login;
